@@ -5,3 +5,41 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Data {
+  id              Int      @id @default(autoincrement())
+  img             String?  @default("https://retrotok.ru/upload/resize_cache/webp/bitrix/templates/unimagazin_s1/images/noimg/no-img.webp") // негизги сүрөт
+  images          String[] @default([]) // кошумча сүрөттөр / галерея
+  title           String // аты-жөнү
+  category        String? // категория: спортчу, жазуучу, тарыхый инсан, баатыр, ырчы, диний инсан
+  nationality     String? // жарандыгы / улуту
+  dateOfBirth     String? // туулган датасы (мисалы, "4-май 1993")
+  age             Int? // жашы (мисалы, 32)
+  placeOfBirth    String? // туулган жери
+  dateOfDeath     String? // каза болгон датасы (эгер бар болсо)
+  coach           String? // машыктыруучу (спортчулар үчүн)
+  height          Int? // бойу (спортчу үчүн)
+  weight          Int? // салмагы (спортчу үчүн)
+  mastery         String? // чеберчилиги / түрү / жанры
+  achievements    String? // жетишкендиктери / сыйлыктары / рекорддор
+  works           String? // эмгектери / китептери / ырлары
+  biography       String? // кыскача биография
+  interestingFact String? // кызыктуу фактылар
+  family          String? // үй-бүлөсү (эгер белгилүү болсо)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
